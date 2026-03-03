@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -45,6 +46,7 @@ public class UserController {
     }
 
     @PostMapping()
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserDetailResponse> createOperator(
             @RequestBody UserCreateRequest body
     ) {
@@ -66,16 +68,16 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<GenericResponse> deleteUser(
             @PathVariable UUID userId
     ) {
         userService.deleteUser(userId);
 
-        GenericResponse response = GenericResponse
-                .builder()
-                .message("User with id " + userId + " was deleted")
-                .status(HttpStatus.OK)
-                .build();
+        GenericResponse response = new GenericResponse(
+                "User with id " + userId + " was deleted",
+                HttpStatus.OK
+        );
 
         return ResponseEntity.ok(response);
     }
