@@ -1,27 +1,22 @@
 package com.nelumbo.open_flow_coworking.shared.dto;
 
 import com.nelumbo.open_flow_coworking.shared.enums.AccessStatus;
-import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class AccessLogDto {
-    private UUID id;
-    private OffsetDateTime createdAt;
-    private OffsetDateTime updatedAt;
-    private Boolean recycle;
-    private ClientDto client;
-    private BranchDto branch;
-    private UserDto operator;
-    private OffsetDateTime checkIn;
-    private OffsetDateTime checkOut;
-    private BigDecimal price;
-    private AccessStatus status;
+public record AccessLogDto (
+    UUID id,
+    OffsetDateTime createdAt,
+    OffsetDateTime updatedAt,
+    Boolean recycle,
+    ClientDto client,
+    BranchDto branch,
+    UserDto operator,
+    OffsetDateTime checkIn,
+    OffsetDateTime checkOut,
+    BigDecimal price,
+    AccessStatus status
+) {
 }

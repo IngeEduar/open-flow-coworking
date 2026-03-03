@@ -1,25 +1,20 @@
 package com.nelumbo.open_flow_coworking.shared.dto;
 
 import com.nelumbo.open_flow_coworking.shared.enums.UserRole;
-import lombok.*;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class UserDto {
-    private UUID id;
-    private OffsetDateTime createdAt;
-    private OffsetDateTime updatedAt;
-    private Boolean recycle;
-    private String name;
-    private String email;
-    private String document;
-    private String password;
-    private String salt;
-    private UserRole role;
+public record UserDto (
+    UUID id,
+    OffsetDateTime createdAt,
+    OffsetDateTime updatedAt,
+    Boolean recycle,
+    String name,
+    String email,
+    String document,
+    String password,
+    String salt,
+    UserRole role
+) {
 }
