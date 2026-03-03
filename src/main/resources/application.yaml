@@ -1,1 +1,29 @@
-spring.application.name=open-flow-coworking
+server:
+  address: 0.0.0.0
+  port: 8080
+
+spring:
+  web:
+    resources:
+      add-mappings: false
+    error:
+      whitelabel:
+        enabled: false
+      include-message: always
+  application:
+    name: open-flow-coworking
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/open_flow_coworking
+    username: nelumbo
+    password: 4LfTW6Om7u65qzOsvNpRZfRTqTioC
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 30000
+      pool-name: ReserfyHikariCP
+
+  flyway:
+    enabled: false
+    locations: classpath:db/migration
