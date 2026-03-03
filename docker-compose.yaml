@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgis/postgis:15-3.5-alpine
+    container_name: nelumbo_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: open_flow_coworking
+      POSTGRES_USER: nelumbo
+      POSTGRES_PASSWORD: 4LfTW6Om7u65qzOsvNpRZfRTqTioC
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - nelumbo_data:/var/lib/postgresql/data
+
+volumes:
+  nelumbo_data: {}
