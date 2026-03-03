@@ -1,5 +1,6 @@
-package com.nelumbo.open_flow_coworking.shared.dto;
+package com.nelumbo.open_flow_coworking.model.response.user;
 
+import com.nelumbo.open_flow_coworking.shared.enums.UserRole;
 import lombok.*;
 
 import java.time.OffsetDateTime;
@@ -10,11 +11,13 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BranchOperatorDto {
+public class UserDetailResponse {
     private UUID id;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
     private Boolean recycle;
-    private BranchDto branch;
-    private UserDto user;
+    private String name;
+    private String email;
+    private String document;
+    private UserRole role;
 }

@@ -1,6 +1,5 @@
 package com.nelumbo.open_flow_coworking.exception.ApiExceptionError;
 
-import com.nexxar.reserfy.Util.I18n.I18nBridge;
 import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.Yaml;
 
@@ -40,13 +39,6 @@ public class ApiExceptionError {
     public static String formatMessage(int code, Object... args) {
         ErrorEntry entry = errorMap.get(code);
         if (entry == null) return "Error not found";
-
-        return I18nBridge.translate("errors." + code, args);
-    }
-
-    public static String formatLog(int code, Object... args) {
-        ErrorEntry entry = errorMap.get(code);
-        if (entry == null) return "Error not found";
         return String.format(entry.message(), args);
     }
 
@@ -57,9 +49,7 @@ public class ApiExceptionError {
 
     public static String getMessage(int code) {
         ErrorEntry entry = errorMap.get(code);
-        if (entry == null) return "Error not found";
-
-        return I18nBridge.translate("errors." + code);
+        return entry != null ? entry.message() : "Message not found";
     }
 
     private record ErrorEntry(String message, String status) {}

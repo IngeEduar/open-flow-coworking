@@ -1,6 +1,6 @@
 package com.nelumbo.open_flow_coworking.exception;
 
-import com.nexxar.reserfy.Exception.Errors.CommonErrors;
+import com.nelumbo.open_flow_coworking.exception.ApiExceptionError.ApiExceptionError;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,20 +15,20 @@ public class OpenFlowException extends RuntimeException {
   private final int code;
 
   public OpenFlowException(int code) {
-    super(CommonErrors.getMessage(code));
+    super(ApiExceptionError.getMessage(code));
     this.code = code;
-    this.httpStatus = HttpStatus.valueOf(CommonErrors.getHttpStatusName(code));
-    logError(CommonErrors.formatLog(code));
+    this.httpStatus = HttpStatus.valueOf(ApiExceptionError.getHttpStatusName(code));
+    logError(getMessage());
   }
 
   public OpenFlowException(int code, Object... messageArgs) {
-    super(CommonErrors.formatMessage(code, messageArgs));
+    super(ApiExceptionError.formatMessage(code, messageArgs));
     this.code = code;
-    this.httpStatus = HttpStatus.valueOf(CommonErrors.getHttpStatusName(code));
-    logError(CommonErrors.formatLog(code, messageArgs));
+    this.httpStatus = HttpStatus.valueOf(ApiExceptionError.getHttpStatusName(code));
+    logError(getMessage());
   }
 
   private void logError(String detail) {
-      log.error("[ERROR] {}", detail);
+    log.error("[ERROR] {}", detail);
   }
 }

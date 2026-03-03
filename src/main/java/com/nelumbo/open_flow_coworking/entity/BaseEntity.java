@@ -27,7 +27,6 @@ public abstract class BaseEntity {
 
     @PrePersist
     protected void onCreate() {
-        this.id = UUID.randomUUID();
         this.recycle = false;
         this.createdAt = OffsetDateTime.now();
         this.updatedAt = OffsetDateTime.now();

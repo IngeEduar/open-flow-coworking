@@ -8,6 +8,7 @@ import java.util.UUID;
 public interface UserService {
     Page<UserDto> searchUsers(String q, int limit, int page);
     UserDto userDetail(UUID userId);
-    UserDto createUser(UserDto userDto);
+    UserDto createOperator(UserDto userDto);
     UserDto updateUser(UUID userId, UserDto userDto);
+    void deleteUser(UUID userId);
 }

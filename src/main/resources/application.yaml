@@ -12,6 +12,14 @@ spring:
       include-message: always
   application:
     name: open-flow-coworking
+    security:
+      jwt:
+        secret-key: Ju4TG2epNHXq7iSVAuqx5n/rMyxHjEGRjUxBGdzZSCI=
+        expiration:
+          value: "6"
+          unit: "HOURS"
+    cors:
+      allow-origin: "*"
 
   datasource:
     url: jdbc:postgresql://localhost:5432/open_flow_coworking
@@ -23,6 +31,10 @@ spring:
       minimum-idle: 2
       idle-timeout: 30000
       pool-name: ReserfyHikariCP
+
+  jpa:
+    hibernate:
+      ddl-auto: update
 
   flyway:
     enabled: false
