@@ -46,12 +46,12 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     public BranchDto createBranch(BranchDto branchDto) {
-        if (branchRepository.existsByNameAndAddress(branchDto.getName(), branchDto.getAddress())) {
+        if (branchRepository.existsByNameAndAddress(branchDto.name(), branchDto.address())) {
             throw new OpenFlowException(
                     3,
                     "Branch",
                     "Name and Address",
-                    branchDto.getName()
+                    branchDto.name()
             );
         }
 
@@ -64,15 +64,15 @@ public class BranchServiceImpl implements BranchService {
     @Override
     public BranchDto updateBranch(UUID branchId, BranchDto branchDto) {
         if (
-                branchDto.getName() != null &&
-                        branchDto.getAddress() != null
+                branchDto.name() != null &&
+                        branchDto.address() != null
         ) {
-            if (branchRepository.existsByNameAndAddress(branchDto.getName(), branchDto.getAddress())) {
+            if (branchRepository.existsByNameAndAddress(branchDto.name(), branchDto.address())) {
                 throw new OpenFlowException(
                         3,
                         "Branch",
                         "Name and Address",
-                        branchDto.getName()
+                        branchDto.name()
                 );
             }
         }
@@ -81,31 +81,31 @@ public class BranchServiceImpl implements BranchService {
                 .orElseThrow(() -> new OpenFlowException(2, "Branch", "ID", branchId.toString()));
 
         if (
-                branchDto.getName() != null &&
-                        !branchDto.getName().equals(branch.getName())
+                branchDto.name() != null &&
+                        !branchDto.name().equals(branch.getName())
         ) {
-            branch.setName(branchDto.getName());
+            branch.setName(branchDto.name());
         }
 
         if (
-                branchDto.getAddress() != null &&
-                        !branchDto.getAddress().equals(branch.getAddress())
+                branchDto.address() != null &&
+                        !branchDto.address().equals(branch.getAddress())
         ) {
-            branch.setAddress(branchDto.getAddress());
+            branch.setAddress(branchDto.address());
         }
 
         if (
-                branchDto.getMaxCapacity() != 0 &&
-                        branchDto.getMaxCapacity() != branch.getMaxCapacity()
+                branchDto.maxCapacity() != 0 &&
+                        branchDto.maxCapacity() != branch.getMaxCapacity()
         ) {
-            branch.setMaxCapacity(branchDto.getMaxCapacity());
+            branch.setMaxCapacity(branchDto.maxCapacity());
         }
 
         if (
-                branchDto.getHourlyRate() != null &&
-                        !branchDto.getHourlyRate().equals(branch.getHourlyRate())
+                branchDto.hourlyRate() != null &&
+                        !branchDto.hourlyRate().equals(branch.getHourlyRate())
         ) {
-            branch.setHourlyRate(branchDto.getHourlyRate());
+            branch.setHourlyRate(branchDto.hourlyRate());
         }
 
         branch = branchRepository.save(branch);

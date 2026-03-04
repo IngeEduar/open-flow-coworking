@@ -27,11 +27,11 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthDto login(AuthDto request) {
-        User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new OpenFlowException(2, "User", "email", request.getEmail()));
+        User user = userRepository.findByEmail(request.email())
+                .orElseThrow(() -> new OpenFlowException(2, "User", "email", request.email()));
 
         boolean isPasswordValid = passwordGenerator.verify(
-                request.getPassword(),
+                request.password(),
                 user.getSalt(),
                 user.getPassword()
         );
@@ -96,11 +96,13 @@ public class AuthServiceImpl implements AuthService {
         String accessToken = jwtService.generateToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
 
-        return AuthDto.builder()
-                .token(accessToken)
-                .refreshToken(refreshToken)
-                .expiresIn(jwtService.getExpirationInMillis())
-                .build();
+        return new AuthDto(
+                accessToken,
+                refreshToken,
+                jwtService.getExpirationInMillis(),
+                null,
+                null
+        );
     }
 
     @Override

@@ -24,7 +24,7 @@ errors:
     status: "BAD_REQUEST"
   1002:
     message: "User not authenticated"
-    status: "FORBIDDEN"
+    status: "UNAUTHORIZED"
   1003:
     message: "Invalid token"
     status: "UNAUTHORIZED"

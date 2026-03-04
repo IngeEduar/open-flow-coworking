@@ -44,8 +44,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if (
                 authHeader == null ||
                         !authHeader.startsWith("Bearer ") ||
-                        request.getRequestURI().equals("/api/auth/login") ||
-                        request.getRequestURI().equals("/api/auth/refresh")
+                        request.getRequestURI().equals("/api/tokens")
         ) {
             filterChain.doFilter(request, response);
             return;

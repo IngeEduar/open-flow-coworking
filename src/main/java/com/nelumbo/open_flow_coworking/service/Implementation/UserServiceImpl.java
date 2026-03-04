@@ -51,12 +51,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createOperator(UserDto userDto) {
-        if (userRepository.existsByEmail(userDto.getEmail())) {
-            throw new OpenFlowException(3, "User", "email", userDto.getEmail());
+        if (userRepository.existsByEmail(userDto.email())) {
+            throw new OpenFlowException(3, "User", "email", userDto.email());
         }
 
         String salt = passwordGenerator.generateSalt();
-        String passwordHash = passwordGenerator.hash(userDto.getPassword(), salt);
+        String passwordHash = passwordGenerator.hash(userDto.password(), salt);
 
         User user = userMapper.toEntity(userDto);
 
@@ -75,28 +75,28 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new OpenFlowException(2, "User", "ID", userId.toString()));
 
         if (
-                userDto.getEmail() != null &&
-                        !userDto.getEmail().equals(user.getEmail())
+                userDto.email() != null &&
+                        !userDto.email().equals(user.getEmail())
         ) {
-            if (userRepository.existsByEmail(userDto.getEmail())) {
-                throw new OpenFlowException(3, "User", "email", userDto.getEmail());
+            if (userRepository.existsByEmail(userDto.email())) {
+                throw new OpenFlowException(3, "User", "email", userDto.email());
             }
 
-            user.setEmail(userDto.getEmail());
+            user.setEmail(userDto.email());
         }
 
         if (
-                userDto.getName() != null &&
-                        !userDto.getName().equals(user.getName())
+                userDto.name() != null &&
+                        !userDto.name().equals(user.getName())
         ) {
-            user.setName(userDto.getName());
+            user.setName(userDto.name());
         }
 
         if (
-                userDto.getPassword() != null
+                userDto.password() != null
         ) {
             String salt = passwordGenerator.generateSalt();
-            String passwordHash = passwordGenerator.hash(userDto.getPassword(), salt);
+            String passwordHash = passwordGenerator.hash(userDto.password(), salt);
 
             user.setSalt(salt);
             user.setPassword(passwordHash);

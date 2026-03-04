@@ -29,6 +29,10 @@ public class JwtService {
     private TimeUnit expirationUnit;
 
     public String extractUsername(String token) {
+        if (token.contains("Bearer")) {
+            token = token.substring(7);
+        }
+
         return extractClaim(token, Claims::getSubject);
     }
 

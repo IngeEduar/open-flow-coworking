@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "branch_operator")
+@Table(name = "client")
 @Getter
 @Setter
 @NoArgsConstructor
