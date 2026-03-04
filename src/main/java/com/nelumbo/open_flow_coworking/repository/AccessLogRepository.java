@@ -21,6 +21,7 @@ import java.util.UUID;
 @Repository
 public interface AccessLogRepository extends BaseRepository<AccessLog> {
     Page<AccessLog> findByBranchAndStatus(Branch branch, AccessStatus status, Pageable pageable);
+    Page<AccessLog> findByStatus(AccessStatus status, Pageable pageable);
     Optional<AccessLog> findByClientAndBranchAndStatus(Client client, Branch branch, AccessStatus status);
 
     int countByBranchAndStatus(Branch branch, AccessStatus status);

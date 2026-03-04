@@ -54,6 +54,14 @@ public class AccessLogServiceImpl implements AccessLogService {
     }
 
     @Override
+    public Page<AccessLogDto> findActiveAccesses(int limit, int page) {
+        Pageable pageable = CreatePageable.buildPageable(page, limit, "createdAt");
+        Page<AccessLog> access = accessLogRepository.findByStatus(AccessStatus.ACTIVE, pageable);
+
+        return access.map(accessLogMapper::toDto);
+    }
+
+    @Override
     @Transactional
     public AccessLogDto checkIn(UUID branchId, ClientDto clientDto) {
         User operator = getOperator();
