@@ -23,7 +23,7 @@ public class AdminSeeder implements CommandLineRunner {
     public void run(String... args) {
         String adminEmail = "admin@mail.com";
 
-        if (userRepository.existsByEmail(adminEmail)) {
+        if (!userRepository.existsByEmail(adminEmail)) {
             log.info("Admin user not found, creating default admin user...");
 
             String rawPassword = "admin";

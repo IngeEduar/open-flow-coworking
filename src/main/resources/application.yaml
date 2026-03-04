@@ -3,6 +3,9 @@ server:
   port: 8080
 
 spring:
+  profiles:
+    active: local
+
   web:
     resources:
       add-mappings: false
@@ -10,36 +13,35 @@ spring:
       whitelabel:
         enabled: false
       include-message: always
+      
   application:
     name: open-flow-coworking
-    notifications:
-      url: https://nelumbo.free.beeceptor.com
-      extraHeaders:
-        - name: "Authorization"
-          value: "xxxxxx"
+
     security:
       jwt:
-        secret-key: Ju4TG2epNHXq7iSVAuqx5n/rMyxHjEGRjUxBGdzZSCI=
+        secret-key: ${security.jwt.secret:arlhY+cHqLZgeFTc8XqHLvJ+RjGWDLDmzivVqHmS7/g=}
         expiration:
-          value: "6"
-          unit: "HOURS"
+          value: ${security.jwt.expiration.value:6}
+          unit: ${security.jwt.expiration.unit:HOURS}
+          
     cors:
-      allow-origin: "*"
+      allow-origin: ${cors.allow-origin:*}
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/open_flow_coworking
-    username: nelumbo
-    password: 4LfTW6Om7u65qzOsvNpRZfRTqTioC
+    url: ${db.url:jdbc:postgresql://localhost:5432/postgres}
+    username: ${db.username:postgres}
+    password: ${db.password:postgres}
     driver-class-name: org.postgresql.Driver
     hikari:
-      maximum-pool-size: 10
-      minimum-idle: 2
+      maximum-pool-size: ${db.pool.max-size:10}
+      minimum-idle: ${db.pool.min-idle:2}
       idle-timeout: 30000
-      pool-name: ReserfyHikariCP
+      pool-name: OpenFlowHikariCP
 
   jpa:
     hibernate:
       ddl-auto: validate
+    show-sql: ${jpa.show-sql:false}
 
   flyway:
     enabled: true

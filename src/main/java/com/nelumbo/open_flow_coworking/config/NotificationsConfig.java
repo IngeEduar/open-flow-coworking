@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @Getter
 @Configuration
-@ConfigurationProperties(prefix = "spring.application.notifications")
+@ConfigurationProperties(prefix = "notifications")
 public class NotificationsConfig {
 
     private String url;
