@@ -53,3 +53,7 @@ errors:
   2003:
     message: "User not have an active access record for this branch"
     status: "BAD_REQUEST"
+  # Coupons
+  3000:
+    message: "Coupon has already been redeemed or has passed its expiration date"
+    status: "BAD_REQUEST"

@@ -11,6 +11,7 @@ public record CouponDto (
     OffsetDateTime updatedAt,
     Boolean recycle,
     BranchDto branch,
+    String code,
     ClientDto client,
     OffsetDateTime expiredAt,
     CouponStatus status

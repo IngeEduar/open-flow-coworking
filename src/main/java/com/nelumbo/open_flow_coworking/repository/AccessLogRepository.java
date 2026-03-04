@@ -25,8 +25,10 @@ public interface AccessLogRepository extends BaseRepository<AccessLog> {
     Optional<AccessLog> findByClientAndBranchAndStatus(Client client, Branch branch, AccessStatus status);
 
     int countByBranchAndStatus(Branch branch, AccessStatus status);
-
     boolean existsByClientAndStatus(Client client, AccessStatus status);
+
+    @Query(value = "SELECT COALESCE(SUM(EXTRACT(EPOCH FROM (a.check_out - a.check_in))) / 3600.0, 0) FROM access_log a WHERE a.client_id = :client_id AND a.branch_id = :branch_id AND a.status = 'COMPLETED'", nativeQuery = true)
+    Double sumDurationByClientAndBranch(@Param("client_id") UUID clientId, @Param("branch_id") UUID branchId);
 
     @Query("SELECT a.client.document AS document, COUNT(a.id) AS totalAccesses FROM AccessLog a GROUP BY a.client.document ORDER BY totalAccesses DESC")
     List<TopClientProjection> findTopClients(Pageable pageable);

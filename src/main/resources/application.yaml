@@ -12,6 +12,11 @@ spring:
       include-message: always
   application:
     name: open-flow-coworking
+    notifications:
+      url: https://nelumbo.free.beeceptor.com
+      extraHeaders:
+        - name: "Authorization"
+          value: "xxxxxx"
     security:
       jwt:
         secret-key: Ju4TG2epNHXq7iSVAuqx5n/rMyxHjEGRjUxBGdzZSCI=

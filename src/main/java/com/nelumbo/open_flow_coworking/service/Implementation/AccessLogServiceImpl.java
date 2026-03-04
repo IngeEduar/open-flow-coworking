@@ -12,6 +12,8 @@ import com.nelumbo.open_flow_coworking.shared.dto.AccessLogDto;
 import com.nelumbo.open_flow_coworking.shared.dto.ClientDto;
 import com.nelumbo.open_flow_coworking.shared.enums.AccessStatus;
 import com.nelumbo.open_flow_coworking.util.CreatePageable;
+import com.nelumbo.open_flow_coworking.model.event.CheckoutCompletedEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -34,6 +36,7 @@ public class AccessLogServiceImpl implements AccessLogService {
     private final BranchOperatorRepository branchOperatorRepository;
     private final ClientRepository clientRepository;
     private final AccessLogRepository accessLogRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     private final AccessLogMapper accessLogMapper;
 
@@ -106,7 +109,7 @@ public class AccessLogServiceImpl implements AccessLogService {
                 .email(clientDto.email())
                 .build();
 
-        return  clientRepository.save(client);
+        return clientRepository.save(client);
     }
 
     @Override
@@ -123,7 +126,6 @@ public class AccessLogServiceImpl implements AccessLogService {
         Client client = clientRepository.findByDocument(clientDocument)
                 .orElseThrow(() -> new OpenFlowException(2, "Client", "Document", clientDocument));
 
-
         AccessLog accessLog = accessLogRepository
                 .findByClientAndBranchAndStatus(client, branch, AccessStatus.ACTIVE)
                 .orElseThrow(() -> new OpenFlowException(2003));
@@ -136,6 +138,8 @@ public class AccessLogServiceImpl implements AccessLogService {
 
         accessLog.setStatus(AccessStatus.COMPLETED);
         accessLog = accessLogRepository.save(accessLog);
+
+        eventPublisher.publishEvent(new CheckoutCompletedEvent(this, client.getId(), branch.getId()));
 
         return accessLogMapper.toDto(accessLog);
     }
@@ -164,6 +168,6 @@ public class AccessLogServiceImpl implements AccessLogService {
             throw new OpenFlowException(1002);
         }
 
-        return  (User) authentication.getPrincipal();
+        return (User) authentication.getPrincipal();
     }
 }

@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum CouponStatus {
-    AVAILABLE("Disponible"),
+    ACTIVE("Activo"),
     EXPIRED("Expirado"),
     USED("Usado");
 

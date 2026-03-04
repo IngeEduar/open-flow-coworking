@@ -22,10 +22,13 @@ public class Coupon extends BaseEntity {
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
+    @Column(name = "code", nullable = false, unique = true, updatable = false, length = 100)
+    private String code;
+
     @Column(name = "expired_at", updatable = false)
     private OffsetDateTime expiredAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false, updatable = false)
+    @Column(name = "status", nullable = false)
     private CouponStatus status;
 }
