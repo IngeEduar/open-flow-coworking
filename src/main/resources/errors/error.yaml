@@ -40,3 +40,16 @@ errors:
   1007:
     message: "Token and refresh token must be provided"
     status: "BAD_REQUEST"
+  # Branch
+  2000:
+    message: "User is not listed as an operator at this branch"
+    status: "BAD_REQUEST"
+  2001:
+    message: "Branch is at maximum capacity; your registration has not been processed"
+    status: "BAD_REQUEST"
+  2002:
+    message: "User has an active access record at another location"
+    status: "BAD_REQUEST"
+  2003:
+    message: "User not have an active access record for this branch"
+    status: "BAD_REQUEST"

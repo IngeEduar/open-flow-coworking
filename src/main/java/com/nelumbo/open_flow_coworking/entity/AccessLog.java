@@ -30,10 +30,10 @@ public class AccessLog extends BaseEntity {
     @Column(name = "check_in", updatable = false)
     private OffsetDateTime checkIn;
 
-    @Column(name = "check_out", updatable = false)
+    @Column(name = "check_out")
     private OffsetDateTime checkOut;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price")
     private BigDecimal price;
 
     @Enumerated(EnumType.STRING)
