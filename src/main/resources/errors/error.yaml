@@ -7,7 +7,7 @@ errors:
     status: "NOT_FOUND"
   3:
     message: "%s with %s '%s' already exists"
-    status: "BAD_REQUEST"
+    status: "CONFLICT"
   4:
     message: "User not have permissions for this action"
     status: "FORBIDDEN"
@@ -21,7 +21,7 @@ errors:
   # Authentication
   1001:
     message: "Authorization header is invalid"
-    status: "BAD_REQUEST"
+    status: "UNAUTHORIZED"
   1002:
     message: "User not authenticated"
     status: "UNAUTHORIZED"
@@ -36,24 +36,24 @@ errors:
     status: "FORBIDDEN"
   1006:
     message: "Incorrect password"
-    status: "BAD_REQUEST"
+    status: "UNAUTHORIZED"
   1007:
     message: "Token and refresh token must be provided"
     status: "BAD_REQUEST"
   # Branch
   2000:
     message: "User is not listed as an operator at this branch"
-    status: "BAD_REQUEST"
+    status: "FORBIDDEN"
   2001:
     message: "Branch is at maximum capacity; your registration has not been processed"
-    status: "BAD_REQUEST"
+    status: "CONFLICT"
   2002:
     message: "User has an active access record at another location"
-    status: "BAD_REQUEST"
+    status: "CONFLICT"
   2003:
     message: "User not have an active access record for this branch"
-    status: "BAD_REQUEST"
+    status: "NOT_FOUND"
   # Coupons
   3000:
     message: "Coupon has already been redeemed or has passed its expiration date"
-    status: "BAD_REQUEST"
+    status: "CONFLICT"

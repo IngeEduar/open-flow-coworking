@@ -62,7 +62,6 @@ public class UserServiceImpl implements UserService {
 
         user.setSalt(salt);
         user.setPassword(passwordHash);
-        user.setRole(UserRole.OPERATOR);
 
         user = userRepository.save(user);
         
