@@ -44,7 +44,9 @@ public class JwtFilter extends OncePerRequestFilter {
         if (
                 authHeader == null ||
                         !authHeader.startsWith("Bearer ") ||
-                        request.getRequestURI().equals("/api/tokens")
+                        request.getRequestURI().equals("/api/tokens") ||
+                        request.getRequestURI().startsWith("/swagger-ui") ||
+                        request.getRequestURI().startsWith("/v3/api-docs")
         ) {
             filterChain.doFilter(request, response);
             return;

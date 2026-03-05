@@ -27,6 +27,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/tokens").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/tokens").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/tokens").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(AbstractHttpConfigurer::disable)
