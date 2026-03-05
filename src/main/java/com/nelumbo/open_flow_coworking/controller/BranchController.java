@@ -13,6 +13,7 @@ import com.nelumbo.open_flow_coworking.service.BranchOperatorService;
 import com.nelumbo.open_flow_coworking.service.BranchService;
 import com.nelumbo.open_flow_coworking.shared.dto.BranchDto;
 import com.nelumbo.open_flow_coworking.shared.dto.BranchOperatorDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -114,7 +115,7 @@ public class BranchController {
             @ApiResponse(responseCode = "403", description = "Forbidden | Prohibido", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
     public ResponseEntity<BranchDetailResponse> createBranch(
-            @RequestBody BranchCreateRequest body
+            @Valid @RequestBody BranchCreateRequest body
     ) {
         BranchDto bodyDto = branchMapper.toDto(body);
         BranchDto responseDto = branchService.createBranch(bodyDto);
@@ -153,7 +154,7 @@ public class BranchController {
     })
     public ResponseEntity<BranchDetailResponse> updateBranch(
             @PathVariable UUID branchId,
-            @RequestBody BranchCreateRequest body
+            @Valid @RequestBody BranchCreateRequest body
     ) {
         BranchDto bodyDto = branchMapper.toDto(body);
         BranchDto responseDto = branchService.updateBranch(branchId, bodyDto);

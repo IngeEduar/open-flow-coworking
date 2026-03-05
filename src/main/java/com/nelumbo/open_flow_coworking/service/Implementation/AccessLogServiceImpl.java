@@ -68,7 +68,7 @@ public class AccessLogServiceImpl implements AccessLogService {
     @Transactional
     public AccessLogDto checkIn(UUID branchId, ClientDto clientDto) {
         User operator = getOperator();
-        Branch branch = branchRepository.findByIdAndRecycleFalse(branchId)
+        Branch branch = branchRepository.findByIdAndRecycleFalseForUpdate(branchId)
                 .orElseThrow(() -> new OpenFlowException(2, "Branch", "ID", branchId.toString()));
 
         if (!branchOperatorRepository.existsByBranchAndUserAndRecycleFalse(branch, operator)) {
@@ -79,8 +79,11 @@ public class AccessLogServiceImpl implements AccessLogService {
             throw new OpenFlowException(2001);
         }
 
-        Client client = clientRepository.findByDocument(clientDto.document())
-                .orElseGet(() -> createClient(clientDto));
+        Client client = clientRepository.findByDocumentForUpdate(clientDto.document())
+                .orElseGet(() -> {
+                    Client newClient = createClient(clientDto);
+                    return clientRepository.saveAndFlush(newClient);
+                });
 
         if (accessLogRepository.existsByClientAndStatus(client, AccessStatus.ACTIVE)) {
             throw new OpenFlowException(2002);
@@ -103,13 +106,11 @@ public class AccessLogServiceImpl implements AccessLogService {
     }
 
     private Client createClient(ClientDto clientDto) {
-        Client client = Client
+        return Client
                 .builder()
                 .document(clientDto.document())
                 .email(clientDto.email())
                 .build();
-
-        return clientRepository.save(client);
     }
 
     @Override
@@ -160,10 +161,9 @@ public class AccessLogServiceImpl implements AccessLogService {
     private User getOperator() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (
-                authentication == null ||
-                        !authentication.isAuthenticated() ||
-                        Objects.equals(authentication.getPrincipal(), "anonymousUser")
+        if (authentication == null ||
+                !authentication.isAuthenticated() ||
+                Objects.equals(authentication.getPrincipal(), "anonymousUser")
         ) {
             throw new OpenFlowException(1002);
         }

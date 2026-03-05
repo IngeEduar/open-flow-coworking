@@ -13,6 +13,7 @@ import com.nelumbo.open_flow_coworking.service.BranchOperatorService;
 import com.nelumbo.open_flow_coworking.service.UserService;
 import com.nelumbo.open_flow_coworking.shared.dto.BranchOperatorDto;
 import com.nelumbo.open_flow_coworking.shared.dto.UserDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -121,7 +122,7 @@ public class UserController {
             @ApiResponse(responseCode = "403", description = "Forbidden | Prohibido", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
     public ResponseEntity<UserDetailResponse> createOperator(
-            @RequestBody UserCreateRequest body
+            @Valid @RequestBody UserCreateRequest body
     ) {
         UserDto bodyDto = userMapper.toDto(body);
         UserDto userDto = userService.createOperator(bodyDto);
@@ -140,7 +141,7 @@ public class UserController {
     })
     public ResponseEntity<UserDetailResponse> updateUser(
             @PathVariable UUID userId,
-            @RequestBody UserUpdateRequest body
+            @Valid @RequestBody UserUpdateRequest body
     ) {
         UserDto bodyDto = userMapper.toDto(body);
         UserDto userDto = userService.updateUser(userId, bodyDto);

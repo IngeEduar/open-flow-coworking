@@ -1,5 +1,7 @@
 package com.nelumbo.open_flow_coworking.controller;
 
+import jakarta.validation.Valid;
+
 import com.nelumbo.open_flow_coworking.mappers.AuthMapper;
 import com.nelumbo.open_flow_coworking.model.request.authentication.LoginRequest;
 import com.nelumbo.open_flow_coworking.model.response.authentication.AuthResponse;
@@ -32,7 +34,7 @@ public class AuthController {
             @ApiResponse(responseCode = "400", description = "Invalid request body | Cuerpo de solicitud inválido", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(responseCode = "401", description = "Unauthorized - Invalid credentials | No autorizado - Credenciales inválidas", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest body) {
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest body) {
         AuthDto response = authService.login(authMapper.toDto(body));
         return ResponseEntity.ok(authMapper.toResponse(response));
     }
