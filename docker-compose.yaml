@@ -1,6 +1,19 @@
+## ONLY DEVELOPERS
 version: '3.9'
 
 services:
+  backend:
+    image: ingeeduar/open-flow-cooworking:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    container_name: openflow-backoffice
+    ports:
+      - "0.0.0.0:8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+
   postgres:
     image: postgis/postgis:15-3.5-alpine
     container_name: nelumbo_postgres

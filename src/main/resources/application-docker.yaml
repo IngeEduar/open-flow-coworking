@@ -1,0 +1,26 @@
+db:
+  url: jdbc:postgresql://postgres:5432/open_flow_coworking
+  username: nelumbo
+  password: 4LfTW6Om7u65qzOsvNpRZfRTqTioC
+  pool:
+    max-size: 10
+    min-idle: 2
+    
+jpa:
+  show-sql: true
+  
+notifications:
+  url: https://nelumbo.free.beeceptor.com
+  extraHeaders:
+    - name: "Authorization"
+      value: "xxxxxx"
+  
+security:
+  jwt:
+    secret: uSEc50g/U5hjTgCKsPdiw6dh4Wzlor+DSeQe+zwk6Ko=
+    expiration:
+      value: "6"
+      unit: "HOURS"
+
+cors:
+  allow-origin: "*"

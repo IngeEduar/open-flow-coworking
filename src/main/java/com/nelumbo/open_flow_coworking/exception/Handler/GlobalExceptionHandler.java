@@ -48,7 +48,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, exception.getHttpStatus());
     }
 
-
     @ExceptionHandler(OpenFlowException.class)
     public ResponseEntity<ErrorResponse> handleCustom(OpenFlowException ex) {
 
@@ -60,7 +59,6 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(response, ex.getHttpStatus());
     }
-
 
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<ErrorResponse> handle404(NoHandlerFoundException ex) {
@@ -77,7 +75,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
-
     @ExceptionHandler(AuthorizationDeniedException.class)
     public ResponseEntity<ErrorResponse> handleGeneral(AuthorizationDeniedException ex) {
 
@@ -86,13 +83,12 @@ public class GlobalExceptionHandler {
 
         ErrorResponse response = new ErrorResponse(
                 message,
-                HttpStatus.UNAUTHORIZED,
+                HttpStatus.FORBIDDEN,
                 code
         );
 
-        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
     }
-
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneral(Exception ex) {
